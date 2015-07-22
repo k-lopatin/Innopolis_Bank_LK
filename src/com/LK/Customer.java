@@ -49,12 +49,12 @@ public class Customer implements Transactions {
     }
 
     private void getAccountType() {
-        if (this.balance > 5000000) {
+        if (this.balance >= 5000000) {
             if (this.accountType != BUSINESS_TYPE) {
                 logMessage("set account type to business");
                 this.accountType = BUSINESS_TYPE;
             }
-        } else if (this.balance > 5000) {
+        } else if (this.balance >= 5000) {
             if (this.accountType != SAVING_TYPE) {
                 logMessage("set account type to saving");
                 this.accountType = SAVING_TYPE;
