@@ -90,4 +90,18 @@ public class Customer implements Transactions {
     public void log(String message) {
 
     }
+
+    /**
+     * prints the entire log
+     */
+    public void printLog(){
+
+    }
+
+    /**
+     * prints current balance
+     */
+    public void printBalance(){
+
+    }
 }
