@@ -25,4 +25,9 @@ public class Customer implements Transactions {
     public void payInterests() {
 
     }
+
+    @Override
+    public void transfer(Customer reciever, double sum) {
+
+    }
 }
