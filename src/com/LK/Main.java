@@ -42,7 +42,7 @@ public class Main {
                 break;
             case 2: //pay interests
                 user.payInterests();
-                break
+                break;
             case 3: //transfer
                 Customer nextUser;
                 do {
