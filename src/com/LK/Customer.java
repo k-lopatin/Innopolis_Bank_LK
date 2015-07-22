@@ -30,6 +30,7 @@ public class Customer implements Transactions {
 
     /**
      * standard constructor for required field
+     *
      * @param name
      * @param surname
      * @param birthDate
@@ -64,7 +65,6 @@ public class Customer implements Transactions {
     }
 
 
-
     /**
      * get money from account
      *
@@ -72,7 +72,20 @@ public class Customer implements Transactions {
      */
     @Override
     public boolean withdraw(double sum) {
+        if (sum > 0) {
+            if (sum > this.balance) {
+                logMessage("the sum on account is less than sum you want to withdraw");
+                return false;
+            }
+            this.balance -= sum;
 
+            logMessage("You withdraw " + sum);
+            logBalance();
+            return false;
+        } else {
+            logMessage("The sum is not correct");
+            return false;
+        }
     }
 
     /**
@@ -82,7 +95,14 @@ public class Customer implements Transactions {
      */
     @Override
     public void deposit(double sum) {
+        if (sum > 0) {
+            this.balance += sum;
+            logMessage("Your deposit " + sum);
+            this.logBalance();
 
+        } else {
+            logMessage("the sum is not correct");
+        }
     }
 
     /**
@@ -116,6 +136,7 @@ public class Customer implements Transactions {
             } else {
                 logMessage("not enough money to transfer");
             }
+            logMessage("You transfer " + sum);
         } else {
             logMessage("sum is not good");
         }
@@ -138,7 +159,7 @@ public class Customer implements Transactions {
      * prints the entire log
      */
     public void printLog() {
-        for (String s : log){
+        for (String s : log) {
             System.out.println(s);
         }
     }
@@ -146,7 +167,7 @@ public class Customer implements Transactions {
     /**
      * prints current balance
      */
-    public void printBalance() {
-        System.out.printf("На вашем счету %.2f\n", balance);
+    public void logBalance() {
+        logMessage("Your current balance is " + balance);
     }
 }
