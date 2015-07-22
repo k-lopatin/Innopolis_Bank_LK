@@ -25,7 +25,6 @@ public class Main {
             System.out.println("LOG OF " + i + " USER");
             customers[i].printLog();
         }
-        // write your code here
     }
 
     public static void doRandomOperation(Customer user) {

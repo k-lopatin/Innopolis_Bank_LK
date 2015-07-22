@@ -125,7 +125,7 @@ public class Customer implements Transactions {
                 break;
         }
         this.balance += sum;
-        logMessage("pay interests - " + getFormatedDouble(sum));
+        logMessage("pay interests " + getFormatedDouble(sum));
     }
 
     /**
