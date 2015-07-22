@@ -28,4 +28,10 @@ public interface Transactions {
      */
     void transfer(Customer reciever, double sum);
 
+    /**
+     * write message to the log
+     * @param message
+     */
+    void log(String message);
+
 }
