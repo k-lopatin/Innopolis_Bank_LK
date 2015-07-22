@@ -90,7 +90,16 @@ public class Customer implements Transactions {
      */
     @Override
     public void payInterests() {
-
+        switch (this.accountType) {
+            case BUSINESS_TYPE:
+                this.balance *= 1.01;
+                break;
+            case SAVING_TYPE:
+                this.balance *= 1.05;
+                break;
+            default:
+                logMessage("not defined account type");
+        }
     }
 
     /**
@@ -101,12 +110,14 @@ public class Customer implements Transactions {
      */
     @Override
     public void transfer(Customer receiver, double sum) {
-        if(sum > 0){
-            if( this.withdraw(sum) ){
+        if (sum > 0) {
+            if (this.withdraw(sum)) {
                 receiver.deposit(sum);
+            } else {
+                logMessage("not enough money to transfer");
             }
         } else {
-            logMessage("Sum is not good");
+            logMessage("sum is not good");
         }
     }
 
@@ -117,7 +128,7 @@ public class Customer implements Transactions {
      */
     @Override
     public void logMessage(String message) {
-        if(message.isEmpty()) return; //check if message is empty
+        if (message.isEmpty()) return; //check if message is empty
 
         int cur = log.length + 1;
         log[cur] = message;
