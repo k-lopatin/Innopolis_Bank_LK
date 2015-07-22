@@ -85,7 +85,7 @@ public class Customer implements Transactions {
 
             logMessage("you withdraw " + sum);
             logBalance();
-            return false;
+            return true;
         } else {
             logMessage("the sum is not correct");
             return false;
