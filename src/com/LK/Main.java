@@ -16,13 +16,13 @@ public class Main {
         customers[2] = new Customer("Dima", "Boston", new Date(1979, 4, 30), true, "0015 785468", 5000000);
 
         Random random = new Random();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 15; i++) {
             int randUser = random.nextInt(3);
             Customer currUser = customers[randUser];
             doRandomOperation(currUser);
         }
         for(int i=0; i<3; i++){
-            System.out.println("LOG OF " + i + "USER");
+            System.out.println("LOG OF " + i + " USER");
             customers[i].printLog();
         }
         // write your code here

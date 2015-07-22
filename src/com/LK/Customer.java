@@ -57,14 +57,12 @@ public class Customer implements Transactions {
                 logMessage("set account type to business");
                 this.accountType = BUSINESS_TYPE;
             }
-        } else if (this.balance >= 5000) {
+        } else {
             if (this.accountType != SAVING_TYPE) {
                 logMessage("set account type to saving");
                 this.accountType = SAVING_TYPE;
             }
         }
-        logMessage("cant be at least than 5000RUB");
-        this.accountType = 0;
     }
 
 
@@ -155,14 +153,15 @@ public class Customer implements Transactions {
         if (message.isEmpty()) return; //check if message is empty
 
         log[logCounter] = message;
+        logCounter++;
     }
 
     /**
      * prints the entire log
      */
     public void printLog() {
-        for (String s : log) {
-            System.out.println(s);
+        for (int i = 0; i < logCounter; i++) {
+            System.out.println(log[i]);
         }
     }
 
