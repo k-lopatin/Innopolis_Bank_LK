@@ -24,6 +24,7 @@ public class Customer implements Transactions {
 
     /**
      * standard constructor for required fields
+     *
      * @param id
      * @param name
      * @param surname
@@ -48,7 +49,7 @@ public class Customer implements Transactions {
      * @param sum
      */
     @Override
-    public void withdraw(double sum) {
+    public boolean withdraw(double sum) {
 
     }
 
@@ -73,12 +74,18 @@ public class Customer implements Transactions {
     /**
      * Transfers money from your account, to the reciever account
      *
-     * @param reciever who will get money
+     * @param receiver who will get money
      * @param sum
      */
     @Override
-    public void transfer(Customer reciever, double sum) {
-
+    public void transfer(Customer receiver, double sum) {
+        if(sum > 0){
+            if( this.withdraw(sum) ){
+                receiver.deposit(sum);
+            }
+        } else {
+            logMessage("Sum is not good");
+        }
     }
 
     /**
@@ -87,21 +94,26 @@ public class Customer implements Transactions {
      * @param message
      */
     @Override
-    public void log(String message) {
+    public void logMessage(String message) {
+        if(message.isEmpty()) return; //check if message is empty
 
+        int cur = log.length + 1;
+        log[cur] = message;
     }
 
     /**
      * prints the entire log
      */
-    public void printLog(){
-
+    public void printLog() {
+        for (String s : log){
+            System.out.println(s);
+        }
     }
 
     /**
      * prints current balance
      */
-    public void printBalance(){
-
+    public void printBalance() {
+        System.out.printf("На вашем счету %.2f\n", balance);
     }
 }

@@ -8,7 +8,7 @@ public interface Transactions {
      * get money from account
      * @param sum
      */
-    void withdraw(double sum);
+    boolean withdraw(double sum);
 
     /**
      * put money to the account
@@ -32,6 +32,6 @@ public interface Transactions {
      * write message to the log
      * @param message
      */
-    void log(String message);
+    void logMessage(String message);
 
 }
