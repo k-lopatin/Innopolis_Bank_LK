@@ -17,7 +17,7 @@ public interface Transactions {
     void deposit(double sum);
 
     /**
-     *
+     * add percents of balance
      */
     void payInterests();
 
