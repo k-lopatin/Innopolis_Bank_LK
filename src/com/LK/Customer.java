@@ -48,6 +48,7 @@ public class Customer implements Transactions {
         this.sexMale = sexMale;
         this.document = document;
         this.log = new String[100000];
+        this.balance = balance;
         this.getAccountType();
         this.logCounter = 0;
         this.id = currentId;
