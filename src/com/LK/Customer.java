@@ -1,5 +1,6 @@
 package com.LK;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 
 /**
@@ -166,9 +167,14 @@ public class Customer implements Transactions {
     }
 
     /**
-     * prints current balance
+     * prints formated current balance
      */
     public void logBalance() {
-        logMessage("your current balance is " + balance);
+        logMessage("your current balance is " + this.getBalanceString());
+    }
+
+    public String getBalanceString() {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format(this.balance);
     }
 }

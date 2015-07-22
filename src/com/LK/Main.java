@@ -22,7 +22,7 @@ public class Main {
             doRandomOperation(currUser);
         }
         for(int i=0; i<3; i++){
-            System.out.println("LOG OF " + i + " USER");
+            System.out.println("LOG OF " + i + "USER");
             customers[i].printLog();
         }
         // write your code here
