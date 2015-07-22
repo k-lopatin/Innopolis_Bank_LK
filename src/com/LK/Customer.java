@@ -137,6 +137,8 @@ public class Customer implements Transactions {
         if (sum > 0) {
             if (this.withdraw(sum)) {
                 receiver.deposit(sum);
+                logMessage("transfer to " + receiver.getId() + " sum: " + sum);
+                receiver.logMessage("receive " + sum + " from " + this.id);
             } else {
                 logMessage("not enough money to transfer");
             }
