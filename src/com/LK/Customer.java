@@ -15,6 +15,8 @@ public class Customer implements Transactions {
     private String surname;
     private Date birthDate;
 
+    private int logCounter;
+
     private int id;
 
     /**
@@ -44,8 +46,9 @@ public class Customer implements Transactions {
         this.birthDate = birthDate;
         this.sexMale = sexMale;
         this.document = document;
-        this.log = new String[1000];
+        this.log = new String[100000];
         this.getAccountType();
+        this.logCounter = 0;
     }
 
     private void getAccountType() {
@@ -151,8 +154,7 @@ public class Customer implements Transactions {
     public void logMessage(String message) {
         if (message.isEmpty()) return; //check if message is empty
 
-        int cur = log.length + 1;
-        log[cur] = message;
+        log[logCounter] = message;
     }
 
     /**
