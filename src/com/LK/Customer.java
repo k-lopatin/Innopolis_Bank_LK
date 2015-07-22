@@ -79,11 +79,11 @@ public class Customer implements Transactions {
             }
             this.balance -= sum;
 
-            logMessage("You withdraw " + sum);
+            logMessage("you withdraw " + sum);
             logBalance();
             return false;
         } else {
-            logMessage("The sum is not correct");
+            logMessage("the sum is not correct");
             return false;
         }
     }
@@ -97,7 +97,7 @@ public class Customer implements Transactions {
     public void deposit(double sum) {
         if (sum > 0) {
             this.balance += sum;
-            logMessage("Your deposit " + sum);
+            logMessage("your deposit " + sum);
             this.logBalance();
 
         } else {
@@ -136,7 +136,7 @@ public class Customer implements Transactions {
             } else {
                 logMessage("not enough money to transfer");
             }
-            logMessage("You transfer " + sum);
+            logMessage("you transfer " + sum);
         } else {
             logMessage("sum is not good");
         }
@@ -168,6 +168,6 @@ public class Customer implements Transactions {
      * prints current balance
      */
     public void logBalance() {
-        logMessage("Your current balance is " + balance);
+        logMessage("your current balance is " + balance);
     }
 }
