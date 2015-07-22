@@ -7,10 +7,15 @@ import java.util.Date;
  */
 
 public class Customer implements Transactions {
-    private int id;
+    private final int SAVING_TYPE = 1;
+    private final int BUSINESS_TYPE = 2;
+
+    private static int currentId;
     private String name;
     private String surname;
     private Date birthDate;
+
+    private int id;
 
     /**
      * male - is true
@@ -20,28 +25,45 @@ public class Customer implements Transactions {
 
     private String document;
     private int accountType;
+    private double balance;
     private String[] log;
 
     /**
-     * standard constructor for required fields
-     *
-     * @param id
+     * standard constructor for required field
      * @param name
      * @param surname
      * @param birthDate
      * @param sexMale
      * @param document
-     * @param accountType
+     * @param balance
      */
-    public Customer(int id, String name, String surname, Date birthDate, boolean sexMale, String document, int accountType) {
-        this.id = id;
+    public Customer(String name, String surname, Date birthDate, boolean sexMale, String document, double balance) {
         this.name = name;
         this.surname = surname;
         this.birthDate = birthDate;
         this.sexMale = sexMale;
         this.document = document;
-        this.accountType = accountType;
+        this.log = new String[1000];
+        this.getAccountType();
     }
+
+    private void getAccountType() {
+        if (this.balance > 5000000) {
+            if (this.accountType != BUSINESS_TYPE) {
+                logMessage("set account type to business");
+                this.accountType = BUSINESS_TYPE;
+            }
+        } else if (this.balance > 5000) {
+            if (this.accountType != SAVING_TYPE) {
+                logMessage("set account type to saving");
+                this.accountType = SAVING_TYPE;
+            }
+        }
+        logMessage("cant be at least than 5000RUB");
+        this.accountType = 0;
+    }
+
+
 
     /**
      * get money from account
@@ -114,6 +136,6 @@ public class Customer implements Transactions {
      * prints current balance
      */
     public void printBalance() {
-        System.out.printf("РќР° РІР°С€РµРј СЃС‡РµС‚Сѓ %.2f\n", balance);
+        System.out.printf("На вашем счету %.2f\n", balance);
     }
 }
