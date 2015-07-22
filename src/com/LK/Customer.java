@@ -115,16 +115,17 @@ public class Customer implements Transactions {
      */
     @Override
     public void payInterests() {
+        double sum = 0;
         switch (this.accountType) {
             case BUSINESS_TYPE:
-                this.balance *= 1.01;
+                sum = this.balance * 0.01;
                 break;
             case SAVING_TYPE:
-                this.balance *= 1.05;
+                sum = this.balance * 0.05;
                 break;
-            default:
-                logMessage("not defined account type");
         }
+        this.balance += sum;
+        logMessage("pay interests - " + getFormatedDouble(sum));
     }
 
     /**
@@ -175,12 +176,17 @@ public class Customer implements Transactions {
      * prints formated current balance
      */
     public void logBalance() {
-        logMessage("your current balance is " + this.getBalanceString());
+        logMessage("your current balance is " + getFormatedDouble(this.balance));
     }
 
-    public String getBalanceString() {
+    /**
+     * format to two digits after comma
+     * @param value
+     * @return
+     */
+    public static String getFormatedDouble(double value) {
         DecimalFormat df = new DecimalFormat("#.##");
-        return df.format(this.balance);
+        return df.format(value);
     }
 
     /**
