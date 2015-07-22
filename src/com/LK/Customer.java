@@ -50,6 +50,8 @@ public class Customer implements Transactions {
         this.log = new String[100000];
         this.getAccountType();
         this.logCounter = 0;
+        this.id = currentId;
+        currentId++;
     }
 
     private void getAccountType() {
@@ -176,5 +178,13 @@ public class Customer implements Transactions {
     public String getBalanceString() {
         DecimalFormat df = new DecimalFormat("#.##");
         return df.format(this.balance);
+    }
+
+    /**
+     *
+     * @return id of current customer
+     */
+    public int getId(){
+        return id;
     }
 }
