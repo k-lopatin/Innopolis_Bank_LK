@@ -11,7 +11,7 @@ public class Customer implements Transactions {
     private final int SAVING_TYPE = 1;
     private final int BUSINESS_TYPE = 2;
 
-    private static int currentId;
+    private static int currentId = 0;
     private String name;
     private String surname;
     private Date birthDate;
@@ -29,7 +29,18 @@ public class Customer implements Transactions {
     private String document;
     private int accountType;
     private double balance;
+
+    public int getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(int branchId) {
+        this.branchId = branchId;
+    }
+
     private String[] log;
+
+    private int branchId;
 
     /**
      * standard constructor for required field
@@ -114,7 +125,7 @@ public class Customer implements Transactions {
      * pays interests to the person account
      */
     @Override
-    public void payInterests() {
+    public double payInterests() {
         double sum = 0;
         switch (this.accountType) {
             case BUSINESS_TYPE:
@@ -126,6 +137,7 @@ public class Customer implements Transactions {
         }
         this.balance += sum;
         logMessage("pay interests " + getFormatedDouble(sum));
+        return sum;
     }
 
     /**
@@ -135,18 +147,21 @@ public class Customer implements Transactions {
      * @param sum
      */
     @Override
-    public void transfer(Customer receiver, double sum) {
+    public boolean transfer(Customer receiver, double sum) {
         if (sum > 0) {
             if (this.withdraw(sum)) {
                 receiver.deposit(sum);
                 logMessage("transfer to " + receiver.getId() + " sum: " + sum);
                 receiver.logMessage("receive " + sum + " from " + this.id);
+                logBalance();
+                return true;
             } else {
                 logMessage("not enough money to transfer");
+                return false;
             }
-            logMessage("you transfer " + sum);
         } else {
             logMessage("sum is not good");
+            return false;
         }
     }
 
@@ -181,6 +196,7 @@ public class Customer implements Transactions {
 
     /**
      * format to two digits after comma
+     *
      * @param value
      * @return
      */
@@ -190,10 +206,15 @@ public class Customer implements Transactions {
     }
 
     /**
-     *
      * @return id of current customer
      */
-    public int getId(){
+    public int getId() {
         return id;
     }
+
+    public static int getCurrentId() {
+        return currentId;
+    }
+
+    public String getName() {return name; }
 }

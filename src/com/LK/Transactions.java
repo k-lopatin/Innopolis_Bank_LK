@@ -19,14 +19,14 @@ public interface Transactions {
     /**
      * add percents of balance
      */
-    void payInterests();
+    double payInterests();
 
     /**
      *
      * @param reciever who will get money
      * @param sum
      */
-    void transfer(Customer reciever, double sum);
+    boolean transfer(Customer reciever, double sum);
 
     /**
      * write message to the log
