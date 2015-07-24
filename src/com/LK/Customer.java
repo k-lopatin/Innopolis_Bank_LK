@@ -11,7 +11,7 @@ public class Customer implements Transactions {
     private final int SAVING_TYPE = 1;
     private final int BUSINESS_TYPE = 2;
 
-    private static int currentId = 0;
+    private static int currentId = 1;
     private String name;
     private String surname;
     private Date birthDate;
@@ -20,9 +20,14 @@ public class Customer implements Transactions {
 
     private int id;
 
+    public double getBalance() {
+        return balance;
+    }
+
     /**
      * male - is true
      * female - false
+
      */
     private boolean sexMale;
 

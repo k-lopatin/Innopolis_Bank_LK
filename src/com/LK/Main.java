@@ -3,29 +3,43 @@ package com.LK;
 import java.util.Random;
 
 import java.util.Date;
+import java.util.Scanner;
 
 public class Main {
-
+    private static Bank bank;
     static Customer[] customers = new Customer[3];
     static Branch[] branches = new Branch[2];
 
+    final static int INFINITY = 999999999;
+
     public static void main(String[] args) {
 
+
+        bank = new Bank();
+        bank.createBranch();
+        bank.createBranch();
 
         customers[0] = new Customer("Igor", "Kustov", new Date(1990, 1, 10), true, "0010 456444", 5001);
         customers[1] = new Customer("Alex", "Mercel", new Date(1987, 3, 20), true, "0012 489944", 1001111111);
         customers[2] = new Customer("Dima", "Boston", new Date(1979, 4, 30), true, "0015 785468", 5000000);
 
 
+        bank.addCustomerToBranch(customers[0], 1);
+        bank.addCustomerToBranch(customers[1], 2);
+        bank.addCustomerToBranch(customers[2], 2);
 
-        branches[0] = new Branch();
+
+        /*branches[0] = new Branch();
         branches[0].addCustomer(customers[0]);
         branches[1] = new Branch();
         branches[1].addCustomer(customers[1]);
-        branches[1].addCustomer(customers[2]);
+        branches[1].addCustomer(customers[2]);*/
 
 
-        branches[1].printCustomers();
+        // branches[1].printCustomers();
+
+        menu();
+
         /*Random random = new Random();
         for (int i = 0; i < 5; i++) {
             int randBranch = random.nextInt(2);
@@ -40,6 +54,143 @@ public class Main {
             customers[i].printLog();
         }*/
     }
+
+    public static void menu() {
+        while (true) {
+            System.out.println();
+            System.out.println("Choose the branch. 0 - show all transactions. -1 - exit");
+            bank.printBranches();
+            Scanner sc = new Scanner(System.in);
+            int branchId = sc.nextInt();
+            if (branchId == -1) {
+                return;
+            }
+            if (branchId == 0) {
+                bank.printAllTransactions();
+                continue;
+            }
+
+            try {
+
+                chooseACustomer(branchId);
+
+            } catch (IllegalArgumentException e) {
+                System.out.println("Enter correct branch id");
+            }
+        }
+
+
+    }
+
+    public static void chooseACustomer(int branchId) {
+        Branch branch = bank.getBranch(branchId);
+        System.out.println("Choose a customer. If 0 - show all transactions");
+        branch.printCustomers();
+
+        Scanner sc = new Scanner(System.in);
+        int customerId = sc.nextInt();
+
+        if( customerId == 0 ){
+            branch.printAllTransactions();
+            return;
+        }
+
+        System.out.println("Choose an operation");
+        System.out.println("0 - exit");
+        System.out.println("1 - deposit");
+        System.out.println("2 - withdraw");
+        System.out.println("3 - pay interests");
+        System.out.println("4 - transfer");
+        System.out.println("5 - show transactions");
+
+        int operation = sc.nextInt();
+        int sum = 0;
+        switch (operation) {
+            case 1:
+                sum = getSum();
+                branch.deposit(customerId, sum);
+                break;
+            case 2:
+                sum = getSum();
+                branch.withdraw(customerId, sum);
+                break;
+            case 3:
+                branch.payInterests(customerId);
+                break;
+            case 4:
+                transfer(branch, branchId, customerId);
+                break;
+            case 5:
+                branch.printTransactionsOfCustomer(customerId);
+                break;
+
+        }
+
+        System.out.println("Enter user to print transaction (if 0 - all transactions of the bank)");
+
+        int user = getUser();
+        if (user == 0) {
+            branch.printAllTransactions();
+        } else {
+            branch.printTransactionsOfCustomer(user);
+        }
+
+
+    }
+
+    /**
+     * do the transfer, catch errors
+     *
+     * @param branch
+     * @param branchId
+     * @param customerId
+     */
+    private static void transfer(Branch branch, int branchId, int customerId) {
+        try {
+            int receiver = getUser();
+            int sum = getSum();
+            Branch receiverBranch = bank.getBranchByUser(receiver);
+
+            if (receiverBranch.getId() == branchId) {
+                branch.transferInBranch(customerId, receiver, sum);
+            } else {
+                branch.transferToAnotherBranch(customerId, receiverBranch, receiver, sum);
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error in data");
+        }
+    }
+
+    /**
+     * scan sum to operate
+     * @return
+     */
+    private static int getSum() {
+        System.out.println("Enter sum:");
+        Scanner sc = new Scanner(System.in);
+        int sum = sc.nextInt();
+        if (sum > 0 && sum < INFINITY) {
+            return sum;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * scan user id
+     * @return
+     */
+    private static int getUser() {
+        System.out.println("Enter id of user:");
+        Scanner sc = new Scanner(System.in);
+        int user = sc.nextInt();
+        if (user > 0 && user < INFINITY) {
+            return user;
+        } else {
+            return 0;
+        }
+    }
+
 
     public static void doRandomOperation(Branch branch, Customer user) {
         Random random = new Random();
