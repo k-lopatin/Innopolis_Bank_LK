@@ -200,9 +200,7 @@ public class Branch {
      * prints all existed transactions
      */
     public void printAllTransactions() {
-        Iterator<Transaction> it = transactions.iterator();
-        while (it.hasNext()) {
-            Transaction t = it.next();
+        for (Transaction t : transactions) {
             System.out.println(t);
         }
     }
@@ -213,9 +211,7 @@ public class Branch {
      * @param userId
      */
     public void printTransactionsOfCustomer(int userId) {
-        Iterator<Transaction> it = transactions.iterator();
-        while (it.hasNext()) {
-            Transaction t = it.next();
+        for (Transaction t : transactions) {
             if (t.getCustomerId() == userId) {
                 System.out.println(t);
             }

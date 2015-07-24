@@ -26,8 +26,7 @@ public class Bank {
      * prints branches of the bank
      */
     public void printBranches() {
-        for (int i = 0; i < branches.size(); i++) {
-            Branch br = branches.get(i);
+        for (Branch br : branches) {
             int id = br.getId();
             System.out.println("branch " + id);
 
@@ -65,8 +64,7 @@ public class Bank {
      * @return
      */
     public Branch getBranchByUser(int userId) {
-        for (int i = 0; i < branches.size(); i++) {
-            Branch curr = branches.get(i);
+        for (Branch curr : branches) {
             if (curr.isUserInBranch(userId)) {
                 return curr;
             }
@@ -78,9 +76,7 @@ public class Bank {
      * prints all transaction in bank
      */
     public void printAllTransactions() {
-        Iterator<Branch> it = branches.iterator();
-        while (it.hasNext()) {
-            Branch br = it.next();
+        for (Branch br : branches) {
             System.out.println("Branch " + br.getId() + ":");
             br.printAllTransactions();
             System.out.println();
