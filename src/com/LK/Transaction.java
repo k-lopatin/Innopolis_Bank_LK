@@ -66,15 +66,12 @@ public class Transaction {
         return customerId;
     }
 
-    public int getId() {
 
-        return id;
-    }
-
-    public int getBranchId() {
-        return branchId;
-    }
-
+    /**
+     * implements to string method
+     * @return
+     */
+    @Override
     public String toString(){
         String str = "Transaction #" + id + "\n";
 

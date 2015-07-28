@@ -8,7 +8,6 @@ import java.util.Scanner;
 public class Main {
     private static Bank bank;
     static Customer[] customers = new Customer[3];
-    static Branch[] branches = new Branch[2];
 
     final static int INFINITY = 999999999;
 
@@ -28,31 +27,8 @@ public class Main {
         bank.addCustomerToBranch(customers[1], 2);
         bank.addCustomerToBranch(customers[2], 2);
 
-
-        /*branches[0] = new Branch();
-        branches[0].addCustomer(customers[0]);
-        branches[1] = new Branch();
-        branches[1].addCustomer(customers[1]);
-        branches[1].addCustomer(customers[2]);*/
-
-
-        // branches[1].printCustomers();
-
         menu();
 
-        /*Random random = new Random();
-        for (int i = 0; i < 5; i++) {
-            int randBranch = random.nextInt(2);
-            Branch currBranch = branches[randBranch];
-            Customer currUser = currBranch.getRandomCustomer();
-            doRandomOperation(currBranch, currUser);
-        }
-        branches[0].printAllTransactions();
-        branches[1].printAllTransactions();
-       /* for(int i=0; i<3; i++){
-            System.out.println("LOG OF " + i + " USER");
-            customers[i].printLog();
-        }*/
     }
 
     public static void menu() {
@@ -82,6 +58,9 @@ public class Main {
 
     }
 
+    /**
+     * @param branchId
+     */
     public static void chooseACustomer(int branchId) {
         Branch branch = bank.getBranch(branchId);
         System.out.println("Choose a customer. If 0 - show all transactions");
@@ -90,7 +69,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int customerId = sc.nextInt();
 
-        if( customerId == 0 ){
+        if (customerId == 0) {
             branch.printAllTransactions();
             return;
         }
@@ -105,25 +84,30 @@ public class Main {
 
         int operation = sc.nextInt();
         int sum = 0;
-        switch (operation) {
-            case 1:
-                sum = getSum();
-                branch.deposit(customerId, sum);
-                break;
-            case 2:
-                sum = getSum();
-                branch.withdraw(customerId, sum);
-                break;
-            case 3:
-                branch.payInterests(customerId);
-                break;
-            case 4:
-                transfer(branch, branchId, customerId);
-                break;
-            case 5:
-                branch.printTransactionsOfCustomer(customerId);
-                break;
+        try {
 
+            switch (operation) {
+                case 1:
+                    sum = getSum();
+                    branch.deposit(customerId, sum);
+                    break;
+                case 2:
+                    sum = getSum();
+                    branch.withdraw(customerId, sum);
+                    break;
+                case 3:
+                    branch.payInterests(customerId);
+                    break;
+                case 4:
+                    transfer(branch, branchId, customerId);
+                    break;
+                case 5:
+                    branch.printTransactionsOfCustomer(customerId);
+                    break;
+
+            }
+        } catch (NullPointerException e){
+            System.out.println("ERROR! Check your data");
         }
 
         System.out.println("Enter user to print transaction (if 0 - all transactions of the bank)");
@@ -163,6 +147,7 @@ public class Main {
 
     /**
      * scan sum to operate
+     *
      * @return
      */
     private static int getSum() {
@@ -178,6 +163,7 @@ public class Main {
 
     /**
      * scan user id
+     *
      * @return
      */
     private static int getUser() {
@@ -191,7 +177,12 @@ public class Main {
         }
     }
 
-
+    /**
+     * this function is not used
+     *
+     * @param branch
+     * @param user
+     */
     public static void doRandomOperation(Branch branch, Customer user) {
         Random random = new Random();
         int randOperation = random.nextInt(4);
